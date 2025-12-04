@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Mental Health",
+    "description": "Understanding emotions, stress, and how to stay mentally well.",
+    "content": "Mental health means how we think, feel, and act. During teenage years, you might face stress, mood swings, or pressure from school or friends. It's okay to feel sad or anxious sometimes. Talk to someone you trust. Simple things like deep breathing, talking, or writing a journal can help a lot."
+  },
+  {
+    "id": 2,
+    "title": "Reproductive Health",
+    "description": "Learn about puberty, periods, and physical development.",
+    "content": "Puberty is a natural stage of life when your body begins to change. Boys and girls go through different but equally important changes. Girls may start menstruating (periods), and boys may experience voice changes. It's important to understand your body and stay clean and healthy during this time."
+  },
+  {
+    "id": 3,
+    "title": "Relationships",
+    "description": "How to build respectful friendships and communicate well.",
+    "content": "Healthy relationships are built on respect, trust, and good communication. Whether it's friends or crushes, it's important to know your boundaries, say no when needed, and treat others kindly. Avoid peer pressure and always speak up if something feels wrong."
+  },
+  {
+    "id": 4,
+    "title": "Social Media & Peer Pressure",
+    "description": "Tips for handling online life and making safe decisions.",
+    "content": "Social media is fun but can sometimes make us feel pressured to be 'perfect'. Always think before you share. You don’t have to follow trends or do what others do to be accepted. Make your own choices and talk to someone if you're being bullied or feel uncomfortable online."
+  },
+  {
+    "id": 5,
+    "title": "Self-Esteem & Body Image",
+    "description": "Learn how to feel confident and love yourself.",
+    "content": "Everyone looks different, and that’s what makes us unique. It’s easy to compare yourself to others, especially online. But your worth is not based on your looks. Practice self-love, take care of your body, and focus on what you love about yourself."
+  },
+  {
+    "id": 6,
+    "title": "Gender & Respect",
+    "description": "Understanding both genders and showing respect to each other.",
+    "content": "In society, boys and girls may have different roles — but everyone deserves equal respect. It’s important to learn about each other’s challenges during teenage years and grow up with empathy. This helps build stronger families and communities."
+  }
+]

@@ -1,0 +1,86 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: linear-gradient(135deg, #acdcff 0%, #90caf9 100%);
+  color: #222;
+}
+
+nav {
+  background: linear-gradient(90deg, #e3f2fd 0%, #bbdefb 100%);
+  padding: 18px 0;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(33,150,243,0.10);
+  border-bottom: 2px solid #90caf9;
+  position: relative;
+  z-index: 10;
+}
+
+nav a {
+  color: #1976d2;
+  margin: 0 22px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.15em;
+  letter-spacing: 0.5px;
+  position: relative;
+  transition: color 0.2s, background 0.2s, transform 0.2s;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+nav a::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 3px;
+  background: #64b5f6;
+  border-radius: 2px;
+  transition: width 0.3s;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+}
+
+nav a:hover {
+  color: #1565c0;
+  background: rgba(100,181,246,0.12);
+  transform: scale(1.08);
+}
+
+nav a:hover::after {
+  width: 80%;
+}
+
+@keyframes navFadeIn {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+nav {
+  animation: navFadeIn 0.8s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+}
+
+h1 {
+  color: #1976d2;
+  text-align: center;
+  margin-top: 28px;
+  font-size: 2.2em;
+  letter-spacing: 1px;
+}
+
+.module-box, .faq-box {
+  background: linear-gradient(120deg, #e3f2fd 0%, #bbdefb 100%);
+  border: 1px solid #90caf9;
+  padding: 22px;
+  margin: 18px auto;
+  width: 92%;
+  max-width: 650px;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(33,150,243,0.08);
+  transition: box-shadow 0.2s;
+}
+.module-box:hover, .faq-box:hover {
+  box-shadow: 0 8px 32px rgba(33,150,243,0.18);
+}
