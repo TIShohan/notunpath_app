@@ -8,7 +8,7 @@ function Login() {
     email: '',
     phone: '',
     name: '',
-    age: '',
+    dateOfBirth: '',
     password: ''
   });
   const [error, setError] = useState('');
@@ -44,8 +44,23 @@ function Login() {
         }
       } else {
         // Register Mode
-        if (!form.email || !form.phone || !form.name || !form.age || !form.password) {
+        if (!form.email || !form.phone || !form.name || !form.dateOfBirth || !form.password) {
           setError('Please fill in all fields.');
+          setLoading(false);
+          return;
+        }
+
+        // Calculate age from date of birth
+        const birthDate = new Date(form.dateOfBirth);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+        }
+
+        if (age < 12) {
+          setError('You must be at least 12 years old to register.');
           setLoading(false);
           return;
         }
@@ -59,7 +74,8 @@ function Login() {
         const result = await register(form.email, form.password, {
           name: form.name,
           phone: form.phone,
-          age: form.age
+          dateOfBirth: form.dateOfBirth,
+          age: age
         });
 
         if (result.success) {
@@ -101,7 +117,7 @@ function Login() {
       email: '',
       phone: '',
       name: '',
-      age: '',
+      dateOfBirth: '',
       password: ''
     });
   };
@@ -145,14 +161,13 @@ function Login() {
               style={{ padding: '12px', borderRadius: '8px', border: '1px solid #90caf9', fontSize: '15px' }}
             />
             <input
-              type="number"
-              name="age"
-              placeholder="Age (10-25)"
-              value={form.age}
+              type="date"
+              name="dateOfBirth"
+              placeholder="Date of Birth"
+              value={form.dateOfBirth}
               onChange={handleChange}
               required
-              min="10"
-              max="25"
+              max={new Date().toISOString().split('T')[0]}
               style={{ padding: '12px', borderRadius: '8px', border: '1px solid #90caf9', fontSize: '15px' }}
             />
           </>
