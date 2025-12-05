@@ -30,6 +30,25 @@ function FAQ() {
     scrollToBottom();
   }, [chatHistory]);
 
+  // Prevent body scroll on mobile
+  useEffect(() => {
+    // Save original body overflow
+    const originalOverflow = document.body.style.overflow;
+    const originalPosition = document.body.style.position;
+
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.body.style.position = originalPosition;
+      document.body.style.width = '';
+    };
+  }, []);
+
   const scrollToBottom = () => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -93,10 +112,14 @@ function FAQ() {
     <div style={{
       display: 'flex',
       flexDirection: 'column',
-      height: 'calc(100vh - 80px)', // adjust based on navbar height
+      position: 'fixed',
+      top: '70px',
+      left: 0,
+      right: 0,
+      bottom: 0,
       maxWidth: '1000px',
       margin: '0 auto',
-      position: 'relative'
+      zIndex: 5
     }}>
 
       {/* Chat Header */}

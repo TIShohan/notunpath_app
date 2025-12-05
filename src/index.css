@@ -79,6 +79,7 @@ body {
   color: var(--text-primary);
   line-height: var(--line-height-base);
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 /* ===== TYPOGRAPHY ===== */

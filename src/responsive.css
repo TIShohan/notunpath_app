@@ -285,6 +285,13 @@
     textarea {
         min-height: 44px;
     }
+
+    /* FAQ/Melo Chat - Prevent whole page scroll on mobile */
+    body:has(.chat-container) {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+    }
 }
 
 /* ===== SMALL MOBILE (max-width: 480px) ===== */
