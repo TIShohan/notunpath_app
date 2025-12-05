@@ -1,0 +1,14 @@
+/* Mobile Menu Z-Index Fix */
+@media (max-width: 768px) {
+    .nav-links {
+        z-index: 1002 !important;
+    }
+
+    .nav-overlay {
+        z-index: 998 !important;
+    }
+
+    .hamburger {
+        z-index: 1003 !important;
+    }
+}
