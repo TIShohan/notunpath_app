@@ -51,7 +51,15 @@ function Login() {
         }
 
         // Calculate age from date of birth
-        const birthDate = new Date(form.dateOfBirth);
+        // Parse DD/MM/YYYY format
+        let birthDate;
+        if (form.dateOfBirth.includes('/')) {
+          const [day, month, year] = form.dateOfBirth.split('/');
+          birthDate = new Date(year, month - 1, day);
+        } else {
+          birthDate = new Date(form.dateOfBirth);
+        }
+
         const today = new Date();
         let age = today.getFullYear() - birthDate.getFullYear();
         const monthDiff = today.getMonth() - birthDate.getMonth();
@@ -160,16 +168,66 @@ function Login() {
               required
               style={{ padding: '12px', borderRadius: '8px', border: '1px solid #90caf9', fontSize: '15px' }}
             />
-            <input
-              type="date"
-              name="dateOfBirth"
-              placeholder="Date of Birth"
-              value={form.dateOfBirth}
-              onChange={handleChange}
-              required
-              max={new Date().toISOString().split('T')[0]}
-              style={{ padding: '12px', borderRadius: '8px', border: '1px solid #90caf9', fontSize: '15px' }}
-            />
+            <div style={{ position: 'relative' }}>
+              <input
+                type="text"
+                name="dateOfBirth"
+                placeholder="Date of Birth (DD/MM/YYYY)"
+                value={form.dateOfBirth}
+                onChange={handleChange}
+                onFocus={(e) => {
+                  // Show calendar picker on focus
+                  if (e.target.showPicker) {
+                    e.target.type = 'date';
+                  }
+                }}
+                onBlur={(e) => {
+                  // Convert back to text if user didn't select from calendar
+                  if (e.target.type === 'date' && e.target.value) {
+                    // Convert YYYY-MM-DD to DD/MM/YYYY for display
+                    const [year, month, day] = e.target.value.split('-');
+                    setForm({ ...form, dateOfBirth: `${day}/${month}/${year}` });
+                    e.target.type = 'text';
+                  } else {
+                    e.target.type = 'text';
+                  }
+                }}
+                required
+                pattern="\d{2}/\d{2}/\d{4}"
+                title="Please enter date in DD/MM/YYYY format"
+                style={{
+                  padding: '12px',
+                  paddingRight: '40px',
+                  borderRadius: '8px',
+                  border: '1px solid #90caf9',
+                  fontSize: '15px',
+                  width: '100%'
+                }}
+              />
+              <span
+                onClick={(e) => {
+                  const input = e.target.previousSibling;
+                  input.type = 'date';
+                  input.focus();
+                  if (input.showPicker) {
+                    input.showPicker();
+                  }
+                }}
+                style={{
+                  position: 'absolute',
+                  right: '12px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  cursor: 'pointer',
+                  fontSize: '1.2rem',
+                  color: '#1976d2'
+                }}
+                title="Open calendar"
+              >
+                📅
+              </span>
+            </div>
+
           </>
         )}
 

@@ -1,0 +1,92 @@
+[
+    {
+        "id": 1,
+        "question": "আমার মন খারাপ থাকে, কিন্তু কাউকে বলতে পারি না। কি করব?",
+        "category": "Mental Health",
+        "askedBy": "Anonymous Teen",
+        "askedDate": "2024-12-01",
+        "upvotes": 24,
+        "answers": [
+            {
+                "id": 1,
+                "answeredBy": "Dr. Fatima Rahman",
+                "specialty": "Adolescent Psychologist",
+                "answer": "এটা খুবই স্বাভাবিক যে তুমি এভাবে feel করছো। প্রথমে, তোমার বিশ্বস্ত কাউকে (বন্ধু, পরিবার, শিক্ষক) খুঁজে বের করো যার সাথে কথা বলতে পারো। Journaling করতে পারো - তোমার feelings লিখে রাখো। আর যদি ২ সপ্তাহের বেশি এভাবে থাকে, তাহলে professional help নাও। আমি এখানে আছি তোমাকে সাহায্য করতে - Consultation section থেকে appointment নিতে পারো।",
+                "answeredDate": "2024-12-02",
+                "helpful": 18
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "question": "Period এর সময় খুব ব্যথা হয়, এটা কি normal?",
+        "category": "Reproductive Health",
+        "askedBy": "Anonymous Teen",
+        "askedDate": "2024-11-28",
+        "upvotes": 31,
+        "answers": [
+            {
+                "id": 2,
+                "answeredBy": "Dr. Nasrin Ahmed",
+                "specialty": "Gynecologist",
+                "answer": "হ্যাঁ, period এর সময় কিছুটা ব্যথা স্বাভাবিক। তবে যদি ব্যথা অসহ্য হয় বা daily activities করতে সমস্যা হয়, তাহলে doctor দেখানো উচিত। কিছু tips: গরম পানির সেঁক দাও পেটে, হালকা exercise করো, পর্যাপ্ত পানি পান করো। Avoid caffeine এবং junk food। যদি সমস্যা continue করে, আমার সাথে consultation নাও।",
+                "answeredDate": "2024-11-29",
+                "helpful": 25
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "question": "How can I say no to peer pressure without losing friends?",
+        "category": "Relationships",
+        "askedBy": "Anonymous Teen",
+        "askedDate": "2024-11-25",
+        "upvotes": 19,
+        "answers": [
+            {
+                "id": 3,
+                "answeredBy": "Dr. Rafiq Islam",
+                "specialty": "Mental Health Counselor",
+                "answer": "Great question! Real friends will respect your boundaries. তুমি politely কিন্তু firmly 'না' বলতে পারো: 'I'm not comfortable with this' বা 'This isn't for me, but you guys go ahead'। Alternative suggest করো যা তুমি করতে comfortable। Remember: যারা তোমাকে force করে বা mock করে, they're not true friends। তোমার values এবং comfort সবচেয়ে important। আমাদের Relationships module দেখো আরো tips এর জন্য।",
+                "answeredDate": "2024-11-26",
+                "helpful": 16
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "question": "আমার ওজন নিয়ে সবাই comment করে, কিভাবে handle করব?",
+        "category": "Self-Esteem",
+        "askedBy": "Anonymous Teen",
+        "askedDate": "2024-11-20",
+        "upvotes": 28,
+        "answers": [
+            {
+                "id": 4,
+                "answeredBy": "Dr. Sultana Begum",
+                "specialty": "Nutritionist",
+                "answer": "এটা শুনে খুব কষ্ট হয় এবং এটা একদমই ঠিক না। তোমার body তোমার, এবং তুমি যেমন আছো তেমনই perfect। Focus করো healthy habits এ, not weight: balanced খাবার খাও, regular exercise করো, enough sleep নাও। যারা negative comments করে, তাদের politely বলো 'I'm comfortable with myself'। Self-Esteem & Body Image module এ আরো guidance পাবে। Need support? Book an appointment with me!",
+                "answeredDate": "2024-11-21",
+                "helpful": 22
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "question": "Social media তে সবাইকে perfect দেখায়, আমি কেন এমন না?",
+        "category": "Social Media",
+        "askedBy": "Anonymous Teen",
+        "askedDate": "2024-11-15",
+        "upvotes": 35,
+        "answers": [
+            {
+                "id": 5,
+                "answeredBy": "Dr. Fatima Rahman",
+                "specialty": "Adolescent Psychologist",
+                "answer": "Social media একটা highlight reel - সবাই শুধু ভালো দিকটা দেখায়। Behind those perfect photos আছে filters, editing, এবং real struggles যা তুমি দেখো না। Remember: Comparison is the thief of joy। তোমার real life তোমার Instagram feed এর চেয়ে অনেক বেশি valuable। Screen time কমাও, real connections এ focus করো। তুমি যথেষ্ট ভালো আছো! আমাদের Social Media module check করো।",
+                "answeredDate": "2024-11-16",
+                "helpful": 30
+            }
+        ]
+    }
+]

@@ -11,6 +11,8 @@ import About from './Pages/About';
 import ModuleDetails from './Pages/ModuleDetails';
 import Consultation from './Pages/Consultation';
 import Emergency from './Pages/Emergency';
+import Profile from './Pages/Profile';
+import Forum from './Pages/Forum';
 import './App.css';
 
 // Navigation component with hamburger menu
@@ -55,7 +57,8 @@ function Navigation() {
           <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
             <Link to="/home" onClick={closeMenu}>Home</Link>
             <Link to="/modules" onClick={closeMenu}>Modules</Link>
-            <Link to="/faq" onClick={closeMenu}>Melo</Link>
+            <Link to="/faq" onClick={closeMenu} className="melo-btn">🤗 Melo</Link>
+            <Link to="/forum" onClick={closeMenu}>Forum</Link>
             <Link to="/consultation" onClick={closeMenu}>Consultation</Link>
             <Link to="/parents" onClick={closeMenu}>Parents</Link>
             <Link to="/about" onClick={closeMenu}>About</Link>
@@ -66,15 +69,15 @@ function Navigation() {
               onClick={closeMenu}
               className="sos-btn"
             >
-              🚨 SOS
+              🚨 Urgent Help
             </Link>
 
             {/* User Info & Logout */}
             <div className="nav-user">
               {userProfile && (
-                <span className="user-name">
+                <Link to="/profile" onClick={closeMenu} className="user-name" style={{ textDecoration: 'none', color: 'inherit' }}>
                   👤 {userProfile.name}
-                </span>
+                </Link>
               )}
               <button onClick={handleLogout} className="logout-btn">
                 Logout
@@ -154,6 +157,18 @@ function App() {
             <Route path="/emergency" element={
               <PrivateRoute>
                 <Emergency />
+              </PrivateRoute>
+            } />
+
+            <Route path="/profile" element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            } />
+
+            <Route path="/forum" element={
+              <PrivateRoute>
+                <Forum />
               </PrivateRoute>
             } />
           </Routes>
