@@ -1,70 +1,349 @@
-# Getting Started with Create React App
+# নতুনপথ (Notun Poth) - Teen Health Awareness App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A mobile-first web application for Bangladeshi adolescents and parents, providing health education and AI-powered support.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🌟 Features
 
-### `npm start`
+### ✅ **User Authentication**
+- Secure Firebase Authentication
+- User registration with profile data
+- Session persistence
+- Protected routes
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### ✅ **Educational Modules**
+6 comprehensive modules covering:
+- Mental Health
+- Reproductive Health
+- Relationships
+- Social Media & Peer Pressure
+- Self-Esteem & Body Image
+- Gender & Respect
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### ✅ **AI Health Buddy** 🤖 NEW!
+- **Powered by Google Gemini AI**
+- Real-time chat interface
+- Context-aware responses for teen health
+- Chat history with timestamps
+- Completely FREE (no credit card needed!)
 
-### `npm test`
+### ✅ **Parents Section**
+Guidance for parents on:
+- Starting conversations
+- Talking about body changes
+- Creating safe spaces
+- Respecting privacy
+- When to seek help
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### ✅ **Modern UI/UX**
+- Mobile-first responsive design
+- Beautiful gradient-based theme
+- Smooth animations
+- Chat bubble interface
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🚀 Quick Start
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### **Prerequisites**
+- Node.js (v14 or higher)
+- npm or yarn
+- Google account (for free Gemini API key)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### **Installation**
 
-### `npm run eject`
+1. **Clone the repository:**
+   ```bash
+   git clone <your-repo-url>
+   cd notunpath_app
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. **Get your FREE Gemini API key:**
+   - Visit: https://aistudio.google.com/app/apikey
+   - Sign in with Google
+   - Click "Create API Key"
+   - Copy the key
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4. **Configure environment:**
+   - Open `.env` file
+   - Add your API key:
+     ```
+     REACT_APP_GEMINI_API_KEY=your_api_key_here
+     ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+5. **Start the app:**
+   ```bash
+   npm start
+   ```
 
-## Learn More
+6. **Open browser:**
+   - Go to: http://localhost:3000
+   - Register a new account
+   - Start exploring!
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 📁 Project Structure
 
-### Code Splitting
+```
+notunpath_app/
+├── public/
+│   ├── index.html
+│   └── assets/
+├── src/
+│   ├── Pages/
+│   │   ├── Home.js
+│   │   ├── Login.js
+│   │   ├── Modules.js
+│   │   ├── ModuleDetails.js
+│   │   ├── FAQ.js          # AI Chat Buddy
+│   │   ├── Parents.js
+│   │   └── About.js
+│   ├── components/
+│   │   └── PrivateRoute.js
+│   ├── context/
+│   │   └── AuthContext.js
+│   ├── firebase/
+│   │   └── config.js
+│   ├── services/
+│   │   └── geminiService.js  # NEW: AI Integration
+│   ├── data/
+│   │   ├── modules.json
+│   │   ├── parents.json
+│   │   └── faq.json
+│   ├── App.js
+│   ├── App.css
+│   └── index.css
+├── .env                    # Your API keys (keep secret!)
+├── .env.example
+├── package.json
+└── README.md
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## 🔧 Tech Stack
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **Frontend:** React 18
+- **Routing:** React Router DOM v7
+- **Authentication:** Firebase Auth
+- **Database:** Cloud Firestore
+- **AI:** Google Gemini 1.5 Flash (FREE)
+- **State Management:** React Context API
+- **Styling:** CSS with gradients
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🤖 AI Chat Buddy Setup
 
-### Advanced Configuration
+### **Quick Setup (2 minutes):**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+1. Get free API key: https://aistudio.google.com/app/apikey
+2. Add to `.env` file
+3. Restart app
+4. Start chatting!
 
-### Deployment
+**Detailed guides:**
+- [QUICK_API_SETUP.md](./QUICK_API_SETUP.md) - Quick start
+- [AI_CHAT_SETUP.md](./AI_CHAT_SETUP.md) - Complete guide
+- [AI_IMPLEMENTATION_SUMMARY.md](./AI_IMPLEMENTATION_SUMMARY.md) - Technical details
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+## 🔒 Security
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- ✅ Firebase Authentication (password hashing)
+- ✅ Protected routes
+- ✅ API key in environment variables
+- ✅ Content filtering (Gemini AI)
+- ✅ `.env` in `.gitignore`
+
+---
+
+## 📱 Available Scripts
+
+### **Development:**
+```bash
+npm start          # Start dev server (http://localhost:3000)
+npm test           # Run tests
+npm run build      # Build for production
+```
+
+### **Deployment:**
+```bash
+npm run build      # Create production build
+# Deploy /build folder to your hosting platform
+```
+
+---
+
+## 🌐 Deployment
+
+### **Recommended Platforms (Free):**
+- **Vercel** (Recommended)
+- **Netlify**
+- **Firebase Hosting**
+- **GitHub Pages**
+
+### **Environment Variables for Deployment:**
+Add these to your hosting platform:
+```
+REACT_APP_GEMINI_API_KEY=your_api_key_here
+```
+
+---
+
+## 📊 Firebase Configuration
+
+**Project:** notunpath-3c848
+
+**Collections:**
+- `users` - User profiles (uid, email, name, phone, age)
+
+**Authentication:**
+- Email/Password
+
+**Access Console:**
+https://console.firebase.google.com/project/notunpath-3c848
+
+---
+
+## 🎓 For University Project
+
+### **Key Highlights:**
+1. **Production-ready authentication** (Firebase)
+2. **AI integration** (Google Gemini)
+3. **Culturally relevant content** (Bangladesh context)
+4. **Modern tech stack** (React, Firebase, AI)
+5. **Completely free** (no costs!)
+6. **Scalable architecture**
+
+### **Demo Checklist:**
+- [ ] User registration/login
+- [ ] Educational modules
+- [ ] AI Chat Buddy (ask 3-4 questions)
+- [ ] Parents section
+- [ ] Responsive design
+- [ ] Logout functionality
+
+---
+
+## 🐛 Troubleshooting
+
+### **AI Chat not working?**
+1. Check `.env` file has correct API key
+2. Restart the app
+3. Check internet connection
+4. See [AI_CHAT_SETUP.md](./AI_CHAT_SETUP.md)
+
+### **Can't login?**
+1. Check Firebase config in `src/firebase/config.js`
+2. Verify internet connection
+3. See [AUTHENTICATION_GUIDE.md](./AUTHENTICATION_GUIDE.md)
+
+### **Build errors?**
+```bash
+rm -rf node_modules package-lock.json
+npm install
+npm start
+```
+
+---
+
+## 📚 Documentation
+
+- [AUTHENTICATION_GUIDE.md](./AUTHENTICATION_GUIDE.md) - Auth system details
+- [QUICK_START.md](./QUICK_START.md) - Getting started
+- [AI_CHAT_SETUP.md](./AI_CHAT_SETUP.md) - AI setup guide
+- [QUICK_API_SETUP.md](./QUICK_API_SETUP.md) - Quick API setup
+- [questions_and_answers.md](./questions_and_answers.md) - Project Q&A
+
+---
+
+## 🎯 Project Objectives
+
+1. **Spread Awareness** - Provide factual health information to teens
+2. **Support Parents** - Guide parents on sensitive conversations
+3. **Break Taboos** - Reduce stigma around health education
+4. **Private Support** - AI buddy for anonymous questions
+5. **Cultural Sensitivity** - Content relevant to Bangladesh
+
+---
+
+## 🆓 Free Tier Limits
+
+### **Google Gemini:**
+- 15 requests/minute
+- 1,500 requests/day
+- 1 million tokens/day
+- **Perfect for university projects!**
+
+### **Firebase:**
+- 10K reads/day (free tier)
+- 20K writes/day (free tier)
+- 1GB storage (free tier)
+
+---
+
+## 🤝 Contributing
+
+This is a university project. For questions or suggestions:
+1. Check documentation files
+2. Review code comments
+3. Test locally before changes
+
+---
+
+## 📄 License
+
+This project is created for educational purposes as a university project.
+
+---
+
+## 👥 Team
+
+**Project:** নতুনপথ (Notun Poth)  
+**Purpose:** University Project - Teen Health Awareness  
+**Target:** Bangladeshi Adolescents & Parents
+
+---
+
+## 🎉 Acknowledgments
+
+- **Firebase** - Authentication & Database
+- **Google Gemini** - AI Chat functionality
+- **React** - Frontend framework
+- **Create React App** - Project setup
+
+---
+
+## 📞 Support
+
+**Documentation:**
+- Check the `/docs` folder
+- Read setup guides
+- Review code comments
+
+**External Resources:**
+- [React Docs](https://react.dev)
+- [Firebase Docs](https://firebase.google.com/docs)
+- [Gemini AI Docs](https://ai.google.dev/docs)
+
+---
+
+**Built with ❤️ for Bangladeshi teens and families**
+
+**Status:** ✅ Production Ready  
+**Cost:** 💰 $0 (Completely Free!)  
+**Demo Ready:** 🎓 Yes!
+
+---
+
+**Last Updated:** December 2025  
+**Version:** 1.0.0
