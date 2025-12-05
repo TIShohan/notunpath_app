@@ -132,6 +132,19 @@ function Login() {
 
   return (
     <div className="module-box" style={{ maxWidth: '450px', margin: '40px auto', padding: '30px' }}>
+      {/* Logo */}
+      <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+        <img
+          src="/logo512.png"
+          alt="নতুনপথ Logo"
+          style={{
+            width: '80px',
+            height: '80px',
+            marginBottom: '10px'
+          }}
+        />
+      </div>
+
       <h1>{isLogin ? '🔐 Login' : '📝 Register'}</h1>
       <p style={{ textAlign: 'center', color: '#666', marginBottom: '20px' }}>
         {isLogin ? 'Welcome back to নতুনপথ' : 'Create your নতুনপথ account'}

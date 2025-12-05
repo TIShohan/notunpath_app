@@ -11,7 +11,14 @@ function FAQ() {
 
   useEffect(() => {
     const savedHistory = localStorage.getItem('meloChat');
-    if (savedHistory) {
+    const savedUser = localStorage.getItem('meloUser');
+
+    // Check if user has changed
+    if (savedUser !== userProfile?.email) {
+      // User changed, clear old chat and show new welcome
+      localStorage.setItem('meloUser', userProfile?.email || '');
+      initializeWelcomeMessage();
+    } else if (savedHistory) {
       try {
         setChatHistory(JSON.parse(savedHistory));
       } catch (error) {
@@ -21,7 +28,7 @@ function FAQ() {
     } else {
       initializeWelcomeMessage();
     }
-  }, []);
+  }, [userProfile?.email]);
 
   useEffect(() => {
     if (chatHistory.length > 0) {
