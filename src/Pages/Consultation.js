@@ -2,6 +2,28 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import doctorsData from '../data/doctors.json';
 
+// Helper function to get initials from name
+const getInitials = (name) => {
+    return name
+        .split(' ')
+        .map(word => word[0])
+        .join('')
+        .toUpperCase()
+        .slice(0, 2);
+};
+
+// Helper function to get gradient colors based on specialty
+const getGradientColors = (specialty) => {
+    const colorMap = {
+        'Adolescent Psychologist': { from: '#667eea', to: '#764ba2' },
+        'Pediatrician': { from: '#f093fb', to: '#f5576c' },
+        'Gynecologist': { from: '#4facfe', to: '#00f2fe' },
+        'Mental Health Counselor': { from: '#43e97b', to: '#38f9d7' },
+        'Nutritionist': { from: '#fa709a', to: '#fee140' }
+    };
+    return colorMap[specialty] || { from: '#667eea', to: '#764ba2' };
+};
+
 function Consultation() {
     const { userProfile } = useAuth();
     const [selectedDoctor, setSelectedDoctor] = useState(null);
@@ -198,13 +220,40 @@ function DoctorCard({ doctor, onBook, index }) {
                 overflow: 'hidden'
             }}
         >
+            {/* Modern Avatar */}
             <div style={{
-                fontSize: '4.5em',
-                textAlign: 'center',
-                margin: '10px 0',
-                filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))'
+                display: 'flex',
+                justifyContent: 'center',
+                margin: '20px 0'
             }}>
-                {doctor.image}
+                <div style={{
+                    width: '100px',
+                    height: '100px',
+                    borderRadius: '50%',
+                    background: `linear-gradient(135deg, ${getGradientColors(doctor.specialty).from} 0%, ${getGradientColors(doctor.specialty).to} 100%)`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '2.5rem',
+                    fontWeight: '700',
+                    color: 'white',
+                    boxShadow: '0 10px 30px rgba(102, 126, 234, 0.3)',
+                    border: '4px solid white',
+                    position: 'relative'
+                }}>
+                    {getInitials(doctor.name)}
+                    {/* Online indicator */}
+                    <div style={{
+                        position: 'absolute',
+                        bottom: '5px',
+                        right: '5px',
+                        width: '20px',
+                        height: '20px',
+                        background: '#48bb78',
+                        border: '3px solid white',
+                        borderRadius: '50%'
+                    }}></div>
+                </div>
             </div>
 
             <h3 style={{
