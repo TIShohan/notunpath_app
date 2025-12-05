@@ -32,43 +32,47 @@ function Consultation() {
     };
 
     return (
-        <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '20px' }}>
+        <div className="container" style={{ paddingBottom: '40px' }}>
             {/* Header */}
-            <div style={{
+            <div className="glass-panel" style={{
+                margin: '20px 0 40px',
+                padding: '40px 20px',
                 textAlign: 'center',
-                marginBottom: '30px',
-                padding: '30px',
-                background: 'linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%)',
-                borderRadius: '12px'
+                background: 'linear-gradient(135deg, rgba(227, 242, 253, 0.9) 0%, rgba(187, 222, 251, 0.9) 100%)',
+                border: '1px solid #bbdefb'
             }}>
                 <h1 style={{
                     margin: '0 0 10px 0',
-                    color: '#1976d2',
-                    fontSize: '2.2em'
+                    background: 'linear-gradient(90deg, #1976d2 0%, #0d47a1 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    fontSize: '2.5rem'
                 }}>
-                    🏥 Professional Consultation
+                    Professional Consultation 🏥
                 </h1>
                 <p style={{
-                    color: '#555',
-                    fontSize: '1.1em',
-                    margin: 0
+                    color: '#1565c0',
+                    fontSize: '1.15rem',
+                    margin: 0,
+                    maxWidth: '600px',
+                    marginLeft: 'auto',
+                    marginRight: 'auto'
                 }}>
-                    Book an appointment with our expert healthcare professionals
+                    Connect with expert psychologists and doctors in a safe, private environment.
                 </p>
             </div>
 
-            {/* Doctors List */}
-            <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                gap: '20px',
+            {/* Doctors Grid */}
+            <div className="grid grid-2" style={{
+                gap: '25px',
                 marginBottom: '30px'
             }}>
-                {doctorsData.map((doctor) => (
+                {doctorsData.map((doctor, index) => (
                     <DoctorCard
                         key={doctor.id}
                         doctor={doctor}
                         onBook={handleBookAppointment}
+                        index={index}
                     />
                 ))}
             </div>
@@ -81,81 +85,71 @@ function Consultation() {
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    background: 'rgba(0,0,0,0.5)',
+                    background: 'rgba(0,0,0,0.6)',
+                    backdropFilter: 'blur(5px)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    zIndex: 1000
+                    zIndex: 2000,
+                    animation: 'fadeIn 0.3s ease'
                 }}>
-                    <div style={{
-                        background: 'white',
+                    <div className="glass-panel" style={{
                         padding: '30px',
-                        borderRadius: '12px',
                         maxWidth: '500px',
                         width: '90%',
-                        boxShadow: '0 10px 40px rgba(0,0,0,0.3)'
+                        background: 'white',
+                        animation: 'slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
                     }}>
                         {!requestSent ? (
                             <>
                                 <h2 style={{ color: '#1976d2', marginTop: 0 }}>
                                     Confirm Appointment Request
                                 </h2>
-                                <div style={{ marginBottom: '20px' }}>
+                                <div style={{ marginBottom: '20px', lineHeight: '1.6' }}>
                                     <p><strong>Doctor:</strong> {selectedDoctor?.name}</p>
                                     <p><strong>Specialty:</strong> {selectedDoctor?.specialty}</p>
-                                    <p><strong>Patient:</strong> {userProfile?.name || 'Guest'}</p>
-                                    <p style={{
-                                        background: '#fff3cd',
-                                        padding: '10px',
+                                    <p><strong>Patient:</strong> {userProfile?.name || 'Guest User'}</p>
+                                    <div style={{
+                                        background: '#fff8e1',
+                                        padding: '12px',
                                         borderRadius: '8px',
-                                        fontSize: '0.9em',
-                                        color: '#856404'
+                                        fontSize: '0.95em',
+                                        color: '#b7791f',
+                                        border: '1px solid #f6e05e',
+                                        marginTop: '15px'
                                     }}>
-                                        ℹ️ Our management team will contact you within 24 hours to confirm the appointment time.
-                                    </p>
+                                        ℹ️ This is a request. Our management team will contact you within 24 hours to confirm the exact time.
+                                    </div>
                                 </div>
-                                <div style={{ display: 'flex', gap: '10px' }}>
+                                <div style={{ display: 'flex', gap: '15px' }}>
                                     <button
                                         onClick={confirmBooking}
-                                        style={{
-                                            flex: 1,
-                                            padding: '12px',
-                                            background: 'linear-gradient(90deg, #64b5f6 0%, #1976d2 100%)',
-                                            color: 'white',
-                                            border: 'none',
-                                            borderRadius: '8px',
-                                            fontSize: '1em',
-                                            fontWeight: 'bold',
-                                            cursor: 'pointer'
-                                        }}
+                                        className="btn btn-primary"
+                                        style={{ flex: 1 }}
                                     >
-                                        ✓ Confirm Request
+                                        Sure, Book it! ✓
                                     </button>
                                     <button
                                         onClick={cancelBooking}
+                                        className="btn"
                                         style={{
                                             flex: 1,
-                                            padding: '12px',
-                                            background: '#f5f5f5',
-                                            color: '#666',
-                                            border: '1px solid #ddd',
-                                            borderRadius: '8px',
-                                            fontSize: '1em',
-                                            cursor: 'pointer'
+                                            background: '#f1f5f9',
+                                            color: '#64748b'
                                         }}
                                     >
-                                        ✕ Cancel
+                                        Cancel
                                     </button>
                                 </div>
                             </>
                         ) : (
-                            <div style={{ textAlign: 'center' }}>
-                                <div style={{ fontSize: '4em', marginBottom: '10px' }}>✅</div>
-                                <h2 style={{ color: '#4caf50', margin: '10px 0' }}>
-                                    Request Sent Successfully!
+                            <div style={{ textAlign: 'center', padding: '20px 0' }}>
+                                <div style={{ fontSize: '4em', marginBottom: '15px', animation: 'bounce 1s infinite' }}>✅</div>
+                                <h2 style={{ color: '#48bb78', margin: '10px 0' }}>
+                                    Request Sent!
                                 </h2>
-                                <p style={{ color: '#666' }}>
-                                    Our team will contact you soon to schedule your appointment.
+                                <p style={{ color: '#718096' }}>
+                                    We'll be in touch shortly.
                                 </p>
                             </div>
                         )}
@@ -164,65 +158,59 @@ function Consultation() {
             )}
 
             {/* Info Section */}
-            <div className="module-box" style={{
-                marginTop: '30px',
-                padding: '25px',
-                background: 'linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%)'
+            <div className="glass-panel" style={{
+                marginTop: '40px',
+                padding: '30px',
+                background: 'rgba(255, 255, 255, 0.6)'
             }}>
-                <h3 style={{ color: '#2e7d32', marginTop: 0 }}>
-                    📋 How It Works
+                <h3 style={{ color: '#2d3748', marginTop: 0, textAlign: 'center' }}>
+                    How It Works
                 </h3>
-                <ol style={{ lineHeight: 2, color: '#555' }}>
-                    <li>Choose a doctor based on your needs</li>
-                    <li>Click "Book Appointment" button</li>
-                    <li>Confirm your appointment request</li>
-                    <li>Our management team will contact you within 24 hours</li>
-                    <li>They will help you set a convenient time for your consultation</li>
-                </ol>
-                <p style={{
-                    marginTop: '15px',
-                    padding: '10px',
-                    background: 'rgba(255,255,255,0.7)',
-                    borderRadius: '8px',
-                    fontSize: '0.95em'
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                    flexWrap: 'wrap',
+                    gap: '20px',
+                    textAlign: 'center',
+                    marginTop: '20px'
                 }}>
-                    💡 <strong>Note:</strong> All consultations are confidential and conducted in a safe, supportive environment.
-                </p>
+                    <Step icon="🔎" text="Choose a Doctor" />
+                    <Step icon="📅" text="Request Time" />
+                    <Step icon="📞" text="We Confirm" />
+                    <Step icon="🤝" text="Consultation" />
+                </div>
             </div>
         </div>
     );
 }
 
 // Doctor Card Component
-function DoctorCard({ doctor, onBook }) {
-    const [isHovered, setIsHovered] = useState(false);
-
+function DoctorCard({ doctor, onBook, index }) {
     return (
         <div
-            className="module-box"
+            className="card-glass"
             style={{
-                padding: '20px',
-                transition: 'all 0.3s ease',
-                transform: isHovered ? 'translateY(-5px)' : 'translateY(0)',
-                cursor: 'default'
+                display: 'flex',
+                flexDirection: 'column',
+                animation: `slideUp 0.6s ease-out ${index * 0.1}s backwards`,
+                borderTop: '4px solid #667eea',
+                position: 'relative',
+                overflow: 'hidden'
             }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
         >
-            {/* Doctor Icon */}
             <div style={{
-                fontSize: '4em',
+                fontSize: '4.5em',
                 textAlign: 'center',
-                marginBottom: '10px'
+                margin: '10px 0',
+                filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))'
             }}>
                 {doctor.image}
             </div>
 
-            {/* Doctor Info */}
             <h3 style={{
-                color: '#1976d2',
-                margin: '10px 0',
-                fontSize: '1.3em',
+                color: '#2d3748',
+                margin: '10px 0 5px 0',
+                fontSize: '1.4em',
                 textAlign: 'center'
             }}>
                 {doctor.name}
@@ -230,62 +218,49 @@ function DoctorCard({ doctor, onBook }) {
 
             <p style={{
                 textAlign: 'center',
-                color: '#666',
-                fontWeight: 'bold',
-                margin: '5px 0 15px 0'
+                color: '#667eea',
+                fontWeight: '600',
+                margin: '0 0 20px 0',
+                textTransform: 'uppercase',
+                fontSize: '0.9rem',
+                letterSpacing: '1px'
             }}>
                 {doctor.specialty}
             </p>
 
             <div style={{
-                fontSize: '0.9em',
-                color: '#555',
+                fontSize: '0.95rem',
+                color: '#4a5568',
                 lineHeight: 1.8,
-                marginBottom: '15px'
+                marginBottom: '20px',
+                flex: 1,
+                background: 'rgba(255,255,255,0.5)',
+                padding: '15px',
+                borderRadius: '10px'
             }}>
-                <p style={{ margin: '5px 0' }}>
-                    <strong>📚 Experience:</strong> {doctor.experience}
-                </p>
-                <p style={{ margin: '5px 0' }}>
-                    <strong>🎓 Education:</strong> {doctor.education}
-                </p>
-                <p style={{ margin: '5px 0' }}>
-                    <strong>🗣️ Languages:</strong> {doctor.languages}
-                </p>
-                <p style={{ margin: '5px 0' }}>
-                    <strong>🕐 Available:</strong> {doctor.availability}
-                </p>
+                <div style={{ marginBottom: '8px' }}><strong>🎓 Education:</strong> {doctor.education}</div>
+                <div style={{ marginBottom: '8px' }}><strong>⭐ Experience:</strong> {doctor.experience}</div>
+                <div><strong>🗣️ Speaks:</strong> {doctor.languages}</div>
             </div>
 
-            {/* Book Button */}
             <button
                 onClick={() => onBook(doctor)}
-                style={{
-                    width: '100%',
-                    padding: '12px',
-                    background: 'linear-gradient(90deg, #64b5f6 0%, #1976d2 100%)',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '1em',
-                    fontWeight: 'bold',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    boxShadow: '0 2px 8px rgba(25, 118, 210, 0.3)'
-                }}
-                onMouseEnter={(e) => {
-                    e.target.style.transform = 'scale(1.02)';
-                    e.target.style.boxShadow = '0 4px 12px rgba(25, 118, 210, 0.4)';
-                }}
-                onMouseLeave={(e) => {
-                    e.target.style.transform = 'scale(1)';
-                    e.target.style.boxShadow = '0 2px 8px rgba(25, 118, 210, 0.3)';
-                }}
+                className="btn btn-primary"
+                style={{ width: '100%' }}
             >
-                📅 Book Appointment
+                Book Appointment
             </button>
         </div>
     );
+}
+
+function Step({ icon, text }) {
+    return (
+        <div style={{ width: '120px' }}>
+            <div style={{ fontSize: '2em', marginBottom: '10px' }}>{icon}</div>
+            <div style={{ fontSize: '0.9rem', fontWeight: 'bold', color: '#4a5568' }}>{text}</div>
+        </div>
+    )
 }
 
 export default Consultation;

@@ -3,13 +3,12 @@ import { sendMessageToGemini, isGeminiConfigured } from "../services/geminiServi
 import { useAuth } from "../context/AuthContext";
 
 function FAQ() {
+  const { userProfile } = useAuth();
   const [question, setQuestion] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
   const [loading, setLoading] = useState(false);
   const chatEndRef = useRef(null);
-  const { userProfile } = useAuth();
 
-  // Load chat history from localStorage on mount
   useEffect(() => {
     const savedHistory = localStorage.getItem('meloChat');
     if (savedHistory) {
@@ -17,72 +16,70 @@ function FAQ() {
         setChatHistory(JSON.parse(savedHistory));
       } catch (error) {
         console.error('Error loading chat history:', error);
-        // If error, start with welcome message
         initializeWelcomeMessage();
       }
     } else {
-      // No saved history, show welcome message
       initializeWelcomeMessage();
     }
   }, []);
 
-  // Save chat history to localStorage whenever it changes
   useEffect(() => {
     if (chatHistory.length > 0) {
       localStorage.setItem('meloChat', JSON.stringify(chatHistory));
     }
+    scrollToBottom();
   }, [chatHistory]);
 
-  // Initialize welcome message
+  const scrollToBottom = () => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   const initializeWelcomeMessage = () => {
     const welcomeMessage = {
       type: "ai",
       text: `Hi ${userProfile?.name || 'there'}! 👋 I'm Melo, your friendly health companion! I'm here to help you with any questions about teen health, mental wellness, or anything you're curious about. Feel free to ask me anything! 😊`,
-      timestamp: new Date().toLocaleTimeString()
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
     setChatHistory([welcomeMessage]);
   };
 
   const handleAsk = async () => {
     if (!question.trim()) return;
-
     const userQuestion = question.trim();
-    setQuestion(""); // Clear input immediately
+    setQuestion("");
 
-    // Add user message to chat
     const userMessage = {
       type: "user",
       text: userQuestion,
-      timestamp: new Date().toLocaleTimeString()
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
     setChatHistory(prev => [...prev, userMessage]);
-
     setLoading(true);
 
     try {
-      // Get AI response
       const aiResponse = await sendMessageToGemini(userQuestion);
-
-      // Add AI response to chat
       const aiMessage = {
         type: "ai",
         text: aiResponse,
-        timestamp: new Date().toLocaleTimeString()
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
       setChatHistory(prev => [...prev, aiMessage]);
-
     } catch (error) {
       console.error("Error fetching AI response:", error);
-
       const errorMessage = {
         type: "ai",
         text: "Oops! Something went wrong on my end. Could you try asking again? 🙏",
-        timestamp: new Date().toLocaleTimeString()
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
       setChatHistory(prev => [...prev, errorMessage]);
     } finally {
       setLoading(false);
     }
+  };
+
+  const clearChat = () => {
+    localStorage.removeItem('meloChat');
+    initializeWelcomeMessage();
   };
 
   const handleKeyPress = (e) => {
@@ -92,211 +89,131 @@ function FAQ() {
     }
   };
 
-  const clearChat = () => {
-    localStorage.removeItem('meloChat');
-    const welcomeMessage = {
-      type: "ai",
-      text: `Hi ${userProfile?.name || 'there'}! 👋 I'm Melo, your friendly health companion! I'm here to help you with any questions about teen health, mental wellness, or anything you're curious about. Feel free to ask me anything! 😊`,
-      timestamp: new Date().toLocaleTimeString()
-    };
-    setChatHistory([welcomeMessage]);
-  };
-
   return (
     <div style={{
-      maxWidth: 800,
-      margin: "20px auto",
-      padding: 20,
-      fontFamily: "Inter, Arial, sans-serif",
-      height: 'calc(100vh - 120px)',
       display: 'flex',
-      flexDirection: 'column'
+      flexDirection: 'column',
+      height: 'calc(100vh - 80px)', // adjust based on navbar height
+      maxWidth: '1000px',
+      margin: '0 auto',
+      position: 'relative'
     }}>
-      {/* Header with Melo Character */}
+
+      {/* Chat Header */}
       <div style={{
-        textAlign: 'center',
-        marginBottom: 20,
-        paddingBottom: 20,
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        borderRadius: '20px',
-        padding: '30px',
-        color: 'white',
-        boxShadow: '0 8px 32px rgba(102, 126, 234, 0.3)'
+        padding: '10px 20px',
+        background: 'rgba(255, 255, 255, 0.8)',
+        backdropFilter: 'blur(10px)',
+        borderBottom: '1px solid rgba(0,0,0,0.05)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        zIndex: 10
       }}>
-        {/* Melo Avatar */}
-        <div style={{
-          width: '100px',
-          height: '100px',
-          margin: '0 auto 15px',
-          background: 'white',
-          borderRadius: '50%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '3.5em',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
-          animation: 'bounce 2s infinite'
-        }}>
-          🤗
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{
+            width: '40px',
+            height: '40px',
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '1.5rem',
+            boxShadow: '0 2px 10px rgba(102, 126, 234, 0.4)'
+          }}>
+            🤗
+          </div>
+          <div>
+            <h2 style={{ margin: 0, fontSize: '1.1rem' }}>Melo</h2>
+            <div style={{ fontSize: '0.8rem', color: '#48bb78', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <span style={{ width: 8, height: 8, background: '#48bb78', borderRadius: '50%', display: 'inline-block' }}></span>
+              Online
+            </div>
+          </div>
         </div>
 
-        <h1 style={{
-          margin: '0 0 10px 0',
-          fontSize: '2.5em',
-          fontWeight: 'bold',
-          textShadow: '2px 2px 4px rgba(0,0,0,0.2)'
-        }}>
-          Melo
-        </h1>
-
-        <p style={{
-          fontSize: '1.1em',
-          margin: '5px 0',
-          opacity: 0.95
-        }}>
-          Your Friendly Health Companion 💙
-        </p>
-
-        <p style={{
-          fontSize: '0.9em',
-          margin: '10px 0 0 0',
-          opacity: 0.85,
-          fontStyle: 'italic'
-        }}>
-          {userProfile ? `Hey ${userProfile.name}! ` : ''}Ask me anything - I'm here to help! 😊
-        </p>
-
-        {!isGeminiConfigured() && (
-          <div style={{
-            background: 'rgba(255,255,255,0.2)',
-            backdropFilter: 'blur(10px)',
-            border: '2px solid rgba(255,255,255,0.3)',
-            borderRadius: 12,
-            padding: 12,
-            marginTop: 15,
-            fontSize: '0.9em'
-          }}>
-            ⚠️ Melo needs configuration. Please add your Gemini API key to .env file.
-          </div>
-        )}
+        <button
+          onClick={clearChat}
+          style={{
+            background: 'transparent',
+            border: '1px solid #e2e8f0',
+            padding: '6px 12px',
+            borderRadius: '20px',
+            fontSize: '0.8rem',
+            color: '#718096',
+            cursor: 'pointer'
+          }}
+        >
+          Clear Chat
+        </button>
       </div>
 
-      {/* Chat History */}
+      {/* Chat Area */}
       <div style={{
         flex: 1,
         overflowY: 'auto',
-        marginBottom: 15,
-        padding: '15px',
-        background: '#f8f9fa',
-        borderRadius: '15px',
-        minHeight: 300
+        padding: '20px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        scrollBehavior: 'smooth'
       }}>
         {chatHistory.map((msg, index) => (
           <div
             key={index}
             style={{
               display: 'flex',
-              justifyContent: msg.type === 'user' ? 'flex-end' : 'flex-start',
-              marginBottom: 16,
-              animation: 'slideIn 0.3s ease-out'
+              flexDirection: 'column',
+              alignItems: msg.type === 'user' ? 'flex-end' : 'flex-start',
+              maxWidth: '85%',
+              alignSelf: msg.type === 'user' ? 'flex-end' : 'flex-start',
+              animation: 'fadeIn 0.3s ease-out'
             }}
           >
-            {/* Melo Avatar for AI messages */}
-            {msg.type === 'ai' && (
-              <div style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '50%',
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '1.5em',
-                marginRight: '10px',
-                flexShrink: 0
-              }}>
-                🤗
-              </div>
-            )}
-
             <div style={{
-              maxWidth: '70%',
-              padding: '14px 18px',
-              borderRadius: msg.type === 'user'
-                ? '20px 20px 5px 20px'
-                : '20px 20px 20px 5px',
+              padding: '12px 18px',
+              borderRadius: '18px',
+              borderBottomLeftRadius: msg.type === 'ai' ? '4px' : '18px',
+              borderBottomRightRadius: msg.type === 'user' ? '4px' : '18px',
               background: msg.type === 'user'
                 ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
                 : 'white',
-              color: msg.type === 'user' ? 'white' : '#333',
+              color: msg.type === 'user' ? 'white' : '#2d3748',
               boxShadow: msg.type === 'user'
-                ? '0 4px 15px rgba(102, 126, 234, 0.3)'
-                : '0 2px 10px rgba(0,0,0,0.1)',
-              wordWrap: 'break-word'
+                ? '0 4px 12px rgba(102, 126, 234, 0.3)'
+                : '0 2px 8px rgba(0,0,0,0.05)',
+              lineHeight: '1.5',
+              fontSize: '1rem'
             }}>
-              <div style={{ fontSize: '0.95em', lineHeight: 1.6 }}>
-                {msg.text}
-              </div>
-              <div style={{
-                fontSize: '0.7em',
-                marginTop: 6,
-                opacity: 0.7,
-                textAlign: 'right'
-              }}>
-                {msg.timestamp}
-              </div>
+              {msg.text}
             </div>
-
-            {/* User Avatar */}
-            {msg.type === 'user' && (
-              <div style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '50%',
-                background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '1.5em',
-                marginLeft: '10px',
-                flexShrink: 0
-              }}>
-                👤
-              </div>
-            )}
+            <span style={{
+              fontSize: '0.7rem',
+              color: '#a0aec0',
+              marginTop: '5px',
+              marginRight: '5px',
+              marginLeft: '5px'
+            }}>
+              {msg.timestamp}
+            </span>
           </div>
         ))}
 
         {loading && (
           <div style={{
+            alignSelf: 'flex-start',
+            background: 'white',
+            padding: '12px 20px',
+            borderRadius: '18px',
+            borderBottomLeftRadius: '4px',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
             display: 'flex',
-            justifyContent: 'flex-start',
-            marginBottom: 16,
-            alignItems: 'center'
+            gap: '5px'
           }}>
-            <div style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '50%',
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '1.5em',
-              marginRight: '10px'
-            }}>
-              🤗
-            </div>
-            <div style={{
-              padding: '14px 18px',
-              borderRadius: '20px 20px 20px 5px',
-              background: 'white',
-              color: '#666',
-              boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
-            }}>
-              <span className="typing-indicator">Melo is thinking</span>
-              <span className="dots">...</span>
-            </div>
+            <span className="dot" style={{ animationDelay: '0s' }}>●</span>
+            <span className="dot" style={{ animationDelay: '0.2s' }}>●</span>
+            <span className="dot" style={{ animationDelay: '0.4s' }}>●</span>
           </div>
         )}
         <div ref={chatEndRef} />
@@ -304,127 +221,77 @@ function FAQ() {
 
       {/* Input Area */}
       <div style={{
+        padding: '15px 20px',
         background: 'white',
-        borderRadius: '20px',
-        padding: '15px',
-        boxShadow: '0 -2px 20px rgba(0,0,0,0.1)'
+        borderTop: '1px solid #edf2f7',
       }}>
-        <div style={{ display: 'flex', gap: 10, alignItems: 'flex-end' }}>
-          <textarea
-            rows={2}
+        <div style={{
+          display: 'flex',
+          gap: '10px',
+          background: '#f7fafc',
+          padding: '5px',
+          borderRadius: '25px',
+          border: '1px solid #e2e8f0',
+          alignItems: 'center'
+        }}>
+          <input
+            type="text"
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Type your message to Melo... (Press Enter to send) 💬"
+            placeholder="Ask Melo anything..."
             disabled={loading}
             style={{
               flex: 1,
-              padding: 14,
-              fontSize: 15,
-              borderRadius: 15,
-              border: '2px solid #e0e0e0',
-              resize: 'none',
-              fontFamily: 'inherit',
+              border: 'none',
+              background: 'transparent',
+              padding: '12px 15px',
               outline: 'none',
-              transition: 'all 0.3s',
-              opacity: loading ? 0.6 : 1,
-              background: '#f8f9fa'
-            }}
-            onFocus={(e) => {
-              e.target.style.borderColor = '#667eea';
-              e.target.style.background = 'white';
-            }}
-            onBlur={(e) => {
-              e.target.style.borderColor = '#e0e0e0';
-              e.target.style.background = '#f8f9fa';
+              fontSize: '1rem',
+              color: '#2d3748'
             }}
           />
           <button
             onClick={handleAsk}
             disabled={loading || !question.trim()}
             style={{
-              padding: "14px 28px",
-              fontSize: 16,
-              fontWeight: 'bold',
-              borderRadius: 15,
-              border: 'none',
-              background: loading || !question.trim()
-                ? '#ccc'
-                : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: loading || !question.trim() ? '#cbd5e0' : 'var(--primary)',
               color: 'white',
-              cursor: loading || !question.trim() ? 'not-allowed' : 'pointer',
-              transition: 'all 0.3s',
-              boxShadow: '0 4px 15px rgba(102, 126, 234, 0.3)',
-              height: 52
-            }}
-            onMouseEnter={(e) => {
-              if (!loading && question.trim()) {
-                e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.4)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = 'translateY(0)';
-              e.target.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.3)';
+              border: 'none',
+              borderRadius: '50%',
+              width: '40px',
+              height: '40px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: loading || !question.trim() ? 'default' : 'pointer',
+              transition: 'all 0.2s',
+              marginRight: '5px'
             }}
           >
-            {loading ? '⏳' : '📤'}
+            <span style={{ fontSize: '1.2rem', marginLeft: '2px' }}>➤</span>
           </button>
         </div>
-
-        {chatHistory.length > 1 && (
-          <button
-            onClick={clearChat}
-            style={{
-              marginTop: 10,
-              padding: '8px 16px',
-              fontSize: 13,
-              borderRadius: 10,
-              border: '2px solid #667eea',
-              background: 'white',
-              color: '#667eea',
-              cursor: 'pointer',
-              transition: 'all 0.3s',
-              fontWeight: 'bold'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.background = '#667eea';
-              e.target.style.color = 'white';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.background = 'white';
-              e.target.style.color = '#667eea';
-            }}
-          >
-            🔄 Start New Chat
-          </button>
+        {!isGeminiConfigured() && (
+          <p style={{ color: 'red', fontSize: '0.8rem', textAlign: 'center', marginTop: '5px' }}>
+            Setup Required: Add REACT_APP_GEMINI_API_KEY to .env
+          </p>
         )}
       </div>
 
       <style>{`
-        @keyframes blink {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 1; }
+        .dot {
+          animation: bounce 1s infinite;
+          color: #a0aec0; /* var(--text-secondary) */
+          font-size: 0.8rem;
         }
-        
         @keyframes bounce {
           0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
+          50% { transform: translateY(-4px); }
         }
-        
-        @keyframes slideIn {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        .dots {
-          animation: blink 1.4s infinite;
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(5px); }
+          to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
     </div>

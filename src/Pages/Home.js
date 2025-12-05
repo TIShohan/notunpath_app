@@ -11,266 +11,193 @@ function Home() {
   }, []);
 
   return (
-    <div style={{
-      maxWidth: '900px',
-      margin: '0 auto',
-      padding: '20px',
+    <div className="container" style={{
+      paddingTop: '40px',
+      paddingBottom: '40px',
       opacity: isVisible ? 1 : 0,
-      transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-      transition: 'all 0.6s ease-out'
+      transition: 'opacity 0.8s ease'
     }}>
       {/* Hero Section */}
-      <div className="module-box" style={{
-        textAlign: 'center',
-        background: 'linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%)',
-        padding: '40px 30px',
-        marginBottom: '30px',
-        animation: 'fadeInDown 0.8s ease-out'
-      }}>
-        <img
-          src="/images/Friendly Doctor.png"
-          alt="Friendly Doctor"
-          style={{
-            width: '150px',
-            height: '150px',
-            objectFit: 'contain',
-            marginBottom: '15px',
-            animation: 'fadeIn 1s ease-out'
-          }}
-        />
-        <h1 style={{
-          margin: '10px 0',
-          fontSize: '2.5em',
-          background: 'linear-gradient(90deg, #1976d2 0%, #64b5f6 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text'
-        }}>
-          নতুনপথ
-        </h1>
+      <div
+        className="glass-panel"
+        style={{
+          padding: '50px 30px',
+          textAlign: 'center',
+          marginBottom: '50px',
+          position: 'relative',
+          overflow: 'hidden',
+          animation: 'slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)'
+        }}
+      >
+        {/* Background Decorative Blob */}
+        <div style={{
+          position: 'absolute',
+          top: '-50%',
+          left: '50%',
+          transform: 'translate(-50%, 0)',
+          width: '500px',
+          height: '500px',
+          background: 'radial-gradient(circle, rgba(102,126,234,0.15) 0%, rgba(255,255,255,0) 70%)',
+          borderRadius: '50%',
+          zIndex: 0,
+          pointerEvents: 'none'
+        }} />
 
-        {userProfile && (
-          <h2 style={{
-            color: '#1976d2',
-            margin: '15px 0',
-            fontSize: '1.5em',
-            animation: 'slideIn 0.8s ease-out 0.2s both'
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <img
+            src="/images/Friendly Doctor.png"
+            alt="Notun Poth Mascot"
+            className="animate-float"
+            style={{
+              width: '120px',
+              height: '120px',
+              objectFit: 'contain',
+              marginBottom: '20px',
+              filter: 'drop-shadow(0 10px 15px rgba(102, 126, 234, 0.3))'
+            }}
+          />
+
+          <h1 style={{ marginBottom: '10px' }}>
+            Welcome to <span className="text-gradient">Notun Poth</span>
+          </h1>
+
+          {userProfile && (
+            <h3 style={{
+              color: 'var(--text-secondary)',
+              fontWeight: '500',
+              fontSize: '1.25rem'
+            }}>
+              Hi, <span style={{ color: 'var(--primary)', fontWeight: '700' }}>{userProfile.name}</span>! 👋
+            </h3>
+          )}
+
+          <p style={{
+            fontSize: '1.15rem',
+            maxWidth: '600px',
+            margin: '20px auto 30px',
+            lineHeight: '1.7'
           }}>
-            Welcome back, {userProfile.name}! 👋
-          </h2>
-        )}
+            Your safe space for adolescent heath, mental wellness, and personal growth.
+            We're here to guide you every step of the way.
+          </p>
 
-        <p style={{
-          fontSize: '1.1em',
-          color: '#555',
-          lineHeight: '1.6',
-          maxWidth: '600px',
-          margin: '20px auto'
-        }}>
-          Your trusted companion for teen health awareness and support
-        </p>
+          <Link to="/modules" className="btn btn-primary" style={{ padding: '14px 36px', fontSize: '1.1rem' }}>
+            Start Your Journey 🚀
+          </Link>
+        </div>
       </div>
 
-      {/* Quick Actions */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-        gap: '20px',
-        marginBottom: '30px'
+      {/* Quick Actions Grid */}
+      <h2 className="text-center" style={{ marginBottom: '30px' }}>Explore the App</h2>
+
+      <div className="grid grid-2" style={{
+        gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+        gap: '25px',
+        marginBottom: '60px'
       }}>
         <QuickActionCard
           icon="📚"
           title="Learning Modules"
-          description="Explore health topics"
+          description="Interactive lessons on health, mind, and body."
           link="/modules"
-          delay="0.3s"
+          color="linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)"
+          delay="0.1s"
         />
         <QuickActionCard
-          icon="🤗"
-          title="Melo"
-          description="Your friendly health companion"
+          icon="💬"
+          title="Chat with Melo"
+          description="Your confidential AI buddy. Ask anything, anytime."
           link="/faq"
-          delay="0.4s"
+          color="linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)"
+          delay="0.2s"
         />
         <QuickActionCard
-          icon="🏥"
+          icon="🩺"
           title="Consultation"
-          description="Book doctor appointments"
+          description="Connect with professional doctors anonymously."
           link="/consultation"
-          delay="0.5s"
+          color="linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)"
+          delay="0.3s"
         />
         <QuickActionCard
           icon="👨‍👩‍👧"
           title="For Parents"
-          description="Guidance & tips"
+          description="Guides to help you support your teenager better."
           link="/parents"
-          delay="0.6s"
+          color="linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)"
+          delay="0.4s"
         />
       </div>
 
-      {/* Features Section */}
-      <div className="module-box" style={{
-        padding: '30px',
-        animation: 'fadeIn 0.8s ease-out 0.6s both'
-      }}>
-        <h2 style={{
-          color: '#1976d2',
-          textAlign: 'center',
-          marginBottom: '25px'
-        }}>
-          🎯 What We Offer
+      {/* Features List */}
+      <div className="glass-panel" style={{ padding: '40px' }}>
+        <h2 className="text-center" style={{ marginBottom: '40px' }}>
+          What You'll Learn
         </h2>
-
         <div style={{
           display: 'grid',
-          gap: '15px',
-          fontSize: '0.95em'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: '20px'
         }}>
-          <FeatureItem
-            icon="🧠"
-            text="Mental Health & Stress Management"
-          />
-          <FeatureItem
-            icon="🌱"
-            text="Adolescence & Physical Development"
-          />
-          <FeatureItem
-            icon="💙"
-            text="Healthy Relationships & Friendships"
-          />
-          <FeatureItem
-            icon="📱"
-            text="Social Media & Peer Pressure Guidance"
-          />
-          <FeatureItem
-            icon="✨"
-            text="Self-Esteem & Body Confidence"
-          />
-          <FeatureItem
-            icon="🤝"
-            text="Gender Understanding & Respect"
-          />
+          <FeatureItem icon="🧠" text="Mental Health Mastery" />
+          <FeatureItem icon="🌱" text="Puberty & Growing Up" />
+          <FeatureItem icon="🤝" text="Building Healthy Relationships" />
+          <FeatureItem icon="🛡️" text="Social Media Safety" />
+          <FeatureItem icon="✨" text="Boosting Self-Esteem" />
+          <FeatureItem icon="⚖️" text="Gender & Respect" />
         </div>
       </div>
-
-      {/* Call to Action */}
-      <div style={{
-        textAlign: 'center',
-        marginTop: '30px',
-        padding: '20px',
-        animation: 'fadeIn 0.8s ease-out 0.8s both'
-      }}>
-        <p style={{
-          fontSize: '1.1em',
-          color: '#666',
-          marginBottom: '15px'
-        }}>
-          Ready to start your journey? 🚀
-        </p>
-        <Link
-          to="/modules"
-          style={{
-            display: 'inline-block',
-            padding: '12px 30px',
-            background: 'linear-gradient(90deg, #64b5f6 0%, #1976d2 100%)',
-            color: 'white',
-            borderRadius: '25px',
-            textDecoration: 'none',
-            fontWeight: 'bold',
-            fontSize: '1.05em',
-            boxShadow: '0 4px 15px rgba(25, 118, 210, 0.3)',
-            transition: 'all 0.3s ease',
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.transform = 'translateY(-2px)';
-            e.target.style.boxShadow = '0 6px 20px rgba(25, 118, 210, 0.4)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.transform = 'translateY(0)';
-            e.target.style.boxShadow = '0 4px 15px rgba(25, 118, 210, 0.3)';
-          }}
-        >
-          Explore Modules
-        </Link>
-      </div>
-
-      {/* CSS Animations */}
-      <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        
-        @keyframes fadeInDown {
-          from { 
-            opacity: 0;
-            transform: translateY(-20px);
-          }
-          to { 
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        @keyframes slideIn {
-          from {
-            opacity: 0;
-            transform: translateX(-20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-        
-        @keyframes pulse {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.05); }
-        }
-      `}</style>
     </div>
   );
 }
 
 // Quick Action Card Component
-function QuickActionCard({ icon, title, description, link, delay }) {
+function QuickActionCard({ icon, title, description, link, color, delay }) {
   return (
-    <Link
-      to={link}
-      style={{ textDecoration: 'none' }}
-    >
+    <Link to={link} style={{ textDecoration: 'none' }}>
       <div
-        className="module-box"
+        className="card-glass"
         style={{
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
           textAlign: 'center',
-          padding: '25px',
-          cursor: 'pointer',
-          transition: 'all 0.3s ease',
-          animation: `fadeIn 0.6s ease-out ${delay} both`,
-          height: '100%'
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'translateY(-5px) scale(1.02)';
-          e.currentTarget.style.boxShadow = '0 8px 25px rgba(33,150,243,0.2)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'translateY(0) scale(1)';
-          e.currentTarget.style.boxShadow = '0 4px 16px rgba(33,150,243,0.08)';
+          animation: `slideUp 0.6s ease-out ${delay} backwards`,
+          position: 'relative',
+          overflow: 'hidden'
         }}
       >
-        <div style={{ fontSize: '3em', marginBottom: '10px' }}>{icon}</div>
+        {/* Soft colorful glow at the top */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '6px',
+          background: color
+        }} />
+
+        <div style={{
+          fontSize: '3.5rem',
+          marginBottom: '15px',
+          background: color,
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
+        }}>
+          {icon}
+        </div>
+
         <h3 style={{
-          color: '#1976d2',
-          margin: '10px 0',
-          fontSize: '1.2em'
+          color: 'var(--text-primary)',
+          margin: '0 0 10px 0',
+          fontSize: '1.3rem'
         }}>
           {title}
         </h3>
-        <p style={{
-          color: '#666',
-          fontSize: '0.9em',
-          margin: 0
-        }}>
+
+        <p style={{ margin: 0, fontSize: '0.95rem' }}>
           {description}
         </p>
       </div>
@@ -284,22 +211,29 @@ function FeatureItem({ icon, text }) {
     <div style={{
       display: 'flex',
       alignItems: 'center',
-      padding: '12px',
-      background: 'rgba(100, 181, 246, 0.1)',
-      borderRadius: '8px',
-      transition: 'all 0.3s ease'
+      padding: '16px',
+      background: 'white',
+      borderRadius: '12px',
+      boxShadow: '0 2px 5px rgba(0,0,0,0.03)',
+      transition: 'transform 0.3s ease'
     }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.background = 'rgba(100, 181, 246, 0.2)';
-        e.currentTarget.style.transform = 'translateX(5px)';
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.background = 'rgba(100, 181, 246, 0.1)';
-        e.currentTarget.style.transform = 'translateX(0)';
-      }}
+      onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
+      onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
     >
-      <span style={{ fontSize: '1.5em', marginRight: '12px' }}>{icon}</span>
-      <span style={{ color: '#333' }}>{text}</span>
+      <span style={{
+        fontSize: '1.5rem',
+        marginRight: '15px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '40px',
+        height: '40px',
+        background: 'var(--background)',
+        borderRadius: '50%'
+      }}>
+        {icon}
+      </span>
+      <span style={{ fontWeight: '500', color: 'var(--text-primary)' }}>{text}</span>
     </div>
   );
 }
