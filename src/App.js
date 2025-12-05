@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
@@ -9,57 +9,88 @@ import FAQ from './Pages/FAQ';
 import Parents from './Pages/Parents';
 import About from './Pages/About';
 import ModuleDetails from './Pages/ModuleDetails';
+import Consultation from './Pages/Consultation';
+import Emergency from './Pages/Emergency';
 import './App.css';
 
-// Navigation component that uses auth state
+// Navigation component with hamburger menu
 function Navigation() {
   const { currentUser, userProfile, logout } = useAuth();
   const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleLogout = async () => {
     const result = await logout();
     if (result.success) {
       navigate('/');
     }
+    setIsMenuOpen(false);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
   };
 
   return (
-    <nav>
+    <nav className="navbar">
       {currentUser ? (
         <>
-          <Link to="/home">Home</Link>
-          <Link to="/modules">Modules</Link>
-          <Link to="/faq">Chat Buddy</Link>
-          <Link to="/parents">Parents</Link>
-          <Link to="/about">About</Link>
-          {userProfile && (
-            <span style={{
-              marginLeft: 'auto',
-              color: '#1976d2',
-              fontWeight: 'bold',
-              fontSize: '0.95em'
-            }}>
-              👤 {userProfile.name}
-            </span>
-          )}
+          {/* Hamburger Button */}
           <button
-            onClick={handleLogout}
-            style={{
-              background: 'linear-gradient(90deg, #f44336 0%, #d32f2f 100%)',
-              color: 'white',
-              border: 'none',
-              padding: '6px 16px',
-              borderRadius: '6px',
-              fontWeight: 'bold',
-              cursor: 'pointer',
-              fontSize: '0.9em'
-            }}
+            className="hamburger"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
           >
-            Logout
+            <span></span>
+            <span></span>
+            <span></span>
           </button>
+
+          {/* App Title/Logo */}
+          <div className="nav-logo">
+            নতুনপথ
+          </div>
+
+          {/* Navigation Links */}
+          <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
+            <Link to="/home" onClick={closeMenu}>Home</Link>
+            <Link to="/modules" onClick={closeMenu}>Modules</Link>
+            <Link to="/faq" onClick={closeMenu}>Melo</Link>
+            <Link to="/consultation" onClick={closeMenu}>Consultation</Link>
+            <Link to="/parents" onClick={closeMenu}>Parents</Link>
+            <Link to="/about" onClick={closeMenu}>About</Link>
+
+            {/* SOS Emergency Button */}
+            <Link
+              to="/emergency"
+              onClick={closeMenu}
+              className="sos-btn"
+            >
+              🚨 SOS
+            </Link>
+
+            {/* User Info & Logout */}
+            <div className="nav-user">
+              {userProfile && (
+                <span className="user-name">
+                  👤 {userProfile.name}
+                </span>
+              )}
+              <button onClick={handleLogout} className="logout-btn">
+                Logout
+              </button>
+            </div>
+          </div>
+
+          {/* Overlay for mobile */}
+          {isMenuOpen && (
+            <div className="nav-overlay" onClick={closeMenu}></div>
+          )}
         </>
       ) : (
-        <Link to="/">Login</Link>
+        <div className="nav-links">
+          <Link to="/">Login</Link>
+        </div>
       )}
     </nav>
   );
@@ -102,6 +133,12 @@ function App() {
               </PrivateRoute>
             } />
 
+            <Route path="/consultation" element={
+              <PrivateRoute>
+                <Consultation />
+              </PrivateRoute>
+            } />
+
             <Route path="/parents" element={
               <PrivateRoute>
                 <Parents />
@@ -113,6 +150,12 @@ function App() {
                 <About />
               </PrivateRoute>
             } />
+
+            <Route path="/emergency" element={
+              <PrivateRoute>
+                <Emergency />
+              </PrivateRoute>
+            } />
           </Routes>
         </div>
       </Router>
@@ -121,4 +164,3 @@ function App() {
 }
 
 export default App;
-

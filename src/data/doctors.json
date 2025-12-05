@@ -1,0 +1,52 @@
+[
+    {
+        "id": 1,
+        "name": "Dr. Fatima Rahman",
+        "specialty": "Adolescent Psychologist",
+        "experience": "12 years",
+        "education": "PhD in Clinical Psychology, Dhaka University",
+        "languages": "Bengali, English",
+        "availability": "Mon-Fri, 2PM-6PM",
+        "image": "👩‍⚕️"
+    },
+    {
+        "id": 2,
+        "name": "Dr. Kamal Hossain",
+        "specialty": "Pediatrician",
+        "experience": "15 years",
+        "education": "MBBS, FCPS (Pediatrics)",
+        "languages": "Bengali, English",
+        "availability": "Tue-Sat, 10AM-4PM",
+        "image": "👨‍⚕️"
+    },
+    {
+        "id": 3,
+        "name": "Dr. Nasrin Ahmed",
+        "specialty": "Gynecologist",
+        "experience": "10 years",
+        "education": "MBBS, FCPS (Gynecology)",
+        "languages": "Bengali, English",
+        "availability": "Sun-Thu, 3PM-7PM",
+        "image": "👩‍⚕️"
+    },
+    {
+        "id": 4,
+        "name": "Dr. Rafiq Islam",
+        "specialty": "Mental Health Counselor",
+        "experience": "8 years",
+        "education": "MSc in Counseling Psychology",
+        "languages": "Bengali, English",
+        "availability": "Mon-Sat, 11AM-5PM",
+        "image": "👨‍⚕️"
+    },
+    {
+        "id": 5,
+        "name": "Dr. Sultana Begum",
+        "specialty": "Nutritionist",
+        "experience": "9 years",
+        "education": "MSc in Nutrition & Dietetics",
+        "languages": "Bengali, English",
+        "availability": "Sun-Thu, 9AM-2PM",
+        "image": "👩‍⚕️"
+    }
+]
