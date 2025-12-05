@@ -1,46 +1,76 @@
 # নতুনপথ (Notun Poth) - Teen Health Awareness App
 
-A mobile-first web application for Bangladeshi adolescents and parents, providing health education and AI-powered support.
+A comprehensive mobile-first web application for Bangladeshi adolescents and parents, providing health education, AI-powered support, and professional consultation.
 
 ---
 
 ## 🌟 Features
 
-### ✅ **User Authentication**
+### ✅ **User Authentication & Profile**
 - Secure Firebase Authentication
-- User registration with profile data
+- User registration with profile data (name, email, phone, date of birth)
+- Editable user profile page
 - Session persistence
 - Protected routes
+- Age validation (12+ years)
 
 ### ✅ **Educational Modules**
-6 comprehensive modules covering:
-- Mental Health
-- Reproductive Health
-- Relationships
-- Social Media & Peer Pressure
-- Self-Esteem & Body Image
-- Gender & Respect
+6 comprehensive modules with detailed Bangla-English mixed content:
+- **Mental Health** (মানসিক স্বাস্থ্য) - Emotions, stress management, seeking help
+- **Reproductive Health** (প্রজনন স্বাস্থ্য) - Puberty, periods, hygiene
+- **Relationships** (সম্পর্ক) - Healthy friendships, communication, boundaries
+- **Social Media & Peer Pressure** - Digital wellbeing, cyberbullying
+- **Self-Esteem & Body Image** - Confidence, body positivity, self-care
+- **Gender & Respect** (লিঙ্গ ও সম্মান) - Equality, consent, stereotypes
 
-### ✅ **AI Health Buddy** 🤖 NEW!
-- **Powered by Google Gemini AI**
-- Real-time chat interface
-- Context-aware responses for teen health
-- Chat history with timestamps
+### ✅ **Melo AI Chat Buddy** 🤗
+- **Powered by Google Gemini 2.0 Flash**
+- Context-aware with full app knowledge (modules, doctors, emergency contacts)
+- Natural Bangla-English mixed responses
+- Real-time chat interface with timestamps
+- Recommends doctors and resources from the app
 - Completely FREE (no credit card needed!)
 
+### ✅ **Doctor Consultation** 👨‍⚕️
+5 professional doctors available:
+- **Dr. Fatima Rahman** - Adolescent Psychologist (12 years)
+- **Dr. Kamal Hossain** - Pediatrician (15 years)
+- **Dr. Nasrin Ahmed** - Gynecologist (10 years)
+- **Dr. Rafiq Islam** - Mental Health Counselor (8 years)
+- **Dr. Sultana Begum** - Nutritionist (9 years)
+
+Each with specialty, availability, and booking system.
+
+### ✅ **Anonymous Q&A Forum** 💬
+- Ask questions anonymously
+- Doctor-answered questions with detailed responses
+- Category filtering (Mental Health, Reproductive Health, etc.)
+- Upvote system (clickable once per user)
+- Color-coded categories for easy navigation
+
+### ✅ **Emergency Support** 🚨
+Quick access to critical helplines:
+- **999** - National Emergency (Police, Ambulance, Fire)
+- **1098** - Child Helpline
+- **109** - Violence Prevention (Women & Child)
+
 ### ✅ **Parents Section**
-Guidance for parents on:
-- Starting conversations
-- Talking about body changes
-- Creating safe spaces
-- Respecting privacy
-- When to seek help
+Comprehensive guidance for parents on:
+- Starting conversations about sensitive topics
+- Talking about body changes and puberty
+- Creating safe spaces for teens
+- Respecting privacy and boundaries
+- When to seek professional help
 
 ### ✅ **Modern UI/UX**
 - Mobile-first responsive design
-- Beautiful gradient-based theme
-- Smooth animations
-- Chat bubble interface
+- Beautiful gradient-based theme with glassmorphism
+- Smooth animations and transitions
+- Unique button styles (Melo AI, Urgent Help)
+- Professional doctor avatars with initials
+- Color-coded categories throughout
+- Fixed mobile scroll issues
+- Disabled zoom on mobile for consistent layout
 
 ---
 
@@ -50,6 +80,7 @@ Guidance for parents on:
 - Node.js (v14 or higher)
 - npm or yarn
 - Google account (for free Gemini API key)
+- Firebase account
 
 ### **Installation**
 
@@ -77,14 +108,19 @@ Guidance for parents on:
      REACT_APP_GEMINI_API_KEY=your_api_key_here
      ```
 
-5. **Start the app:**
+5. **Firebase Configuration:**
+   - Project already configured: `notunpath-3c848`
+   - Config in `src/firebase/config.js`
+   - Collections: `users` (uid, email, name, phone, dateOfBirth, age)
+
+6. **Start the app:**
    ```bash
    npm start
    ```
 
-6. **Open browser:**
+7. **Open browser:**
    - Go to: http://localhost:3000
-   - Register a new account
+   - Register a new account (must be 12+ years old)
    - Start exploring!
 
 ---
@@ -94,35 +130,44 @@ Guidance for parents on:
 ```
 notunpath_app/
 ├── public/
-│   ├── index.html
+│   ├── index.html          # Viewport config for mobile
 │   └── assets/
 ├── src/
 │   ├── Pages/
-│   │   ├── Home.js
-│   │   ├── Login.js
-│   │   ├── Modules.js
-│   │   ├── ModuleDetails.js
-│   │   ├── FAQ.js          # AI Chat Buddy
-│   │   ├── Parents.js
-│   │   └── About.js
+│   │   ├── Home.js         # Dashboard
+│   │   ├── Login.js        # Auth with date input fix
+│   │   ├── Profile.js      # User profile (view/edit)
+│   │   ├── Modules.js      # Educational modules list
+│   │   ├── ModuleDetails.js # Individual module content
+│   │   ├── FAQ.js          # Melo AI Chat Buddy
+│   │   ├── Forum.js        # Anonymous Q&A Forum
+│   │   ├── Consultation.js # Doctor consultation
+│   │   ├── Emergency.js    # Emergency contacts
+│   │   ├── Parents.js      # Parents guidance
+│   │   └── About.js        # About the app
 │   ├── components/
-│   │   └── PrivateRoute.js
+│   │   └── PrivateRoute.js # Route protection
 │   ├── context/
-│   │   └── AuthContext.js
+│   │   └── AuthContext.js  # Auth state management
 │   ├── firebase/
-│   │   └── config.js
+│   │   └── config.js       # Firebase configuration
 │   ├── services/
-│   │   └── geminiService.js  # NEW: AI Integration
+│   │   └── geminiService.js # AI integration with app context
 │   ├── data/
-│   │   ├── modules.json
-│   │   ├── parents.json
-│   │   └── faq.json
-│   ├── App.js
-│   ├── App.css
-│   └── index.css
+│   │   ├── modules.json    # Educational content
+│   │   ├── doctors.json    # Doctor information
+│   │   ├── forum.json      # Q&A forum data
+│   │   ├── parents.json    # Parents guidance
+│   │   └── faq.json        # FAQ data
+│   ├── App.js              # Main app with routing
+│   ├── App.css             # App styles with Melo/SOS buttons
+│   ├── index.css           # Global styles
+│   ├── responsive.css      # Mobile-specific styles
+│   └── fix-mobile-menu.css # Mobile menu fixes
 ├── .env                    # Your API keys (keep secret!)
 ├── .env.example
 ├── package.json
+├── project_idea.md         # Project description
 └── README.md
 ```
 
@@ -132,37 +177,62 @@ notunpath_app/
 
 - **Frontend:** React 18
 - **Routing:** React Router DOM v7
-- **Authentication:** Firebase Auth
+- **Authentication:** Firebase Auth (Email/Password)
 - **Database:** Cloud Firestore
-- **AI:** Google Gemini 1.5 Flash (FREE)
+- **AI:** Google Gemini 2.0 Flash (FREE)
 - **State Management:** React Context API
-- **Styling:** CSS with gradients
+- **Styling:** CSS with gradients, glassmorphism
+- **Hosting:** Vercel/Firebase Hosting ready
 
 ---
 
-## 🤖 AI Chat Buddy Setup
+## 🤖 Melo AI Chat Buddy
 
-### **Quick Setup (2 minutes):**
+### **Features:**
+- Full app context (knows about all modules, doctors, emergency contacts)
+- Natural Bangla-English mixed responses
+- Recommends appropriate doctors based on questions
+- Directs to emergency contacts for urgent situations
+- Guides users to relevant educational modules
+- Culturally sensitive to Bangladeshi context
 
+### **Setup:**
 1. Get free API key: https://aistudio.google.com/app/apikey
-2. Add to `.env` file
+2. Add to `.env` file: `REACT_APP_GEMINI_API_KEY=your_key`
 3. Restart app
-4. Start chatting!
+4. Navigate to "Melo" (purple gradient button)
+5. Start chatting!
 
-**Detailed guides:**
-- [QUICK_API_SETUP.md](./QUICK_API_SETUP.md) - Quick start
-- [AI_CHAT_SETUP.md](./AI_CHAT_SETUP.md) - Complete guide
-- [AI_IMPLEMENTATION_SUMMARY.md](./AI_IMPLEMENTATION_SUMMARY.md) - Technical details
+---
+
+## 💬 Anonymous Q&A Forum
+
+### **Features:**
+- Ask questions completely anonymously
+- 5 sample doctor-answered questions
+- Category filtering with color-coded buttons
+- Upvote system (one click per question)
+- Expandable doctor answers
+- Mock submission (shows confirmation alert)
+
+### **Categories:**
+- Mental Health (Green)
+- Reproductive Health (Orange)
+- Relationships (Red)
+- Social Media (Cyan)
+- Self-Esteem (Purple)
 
 ---
 
 ## 🔒 Security
 
 - ✅ Firebase Authentication (password hashing)
-- ✅ Protected routes
+- ✅ Protected routes (PrivateRoute component)
 - ✅ API key in environment variables
 - ✅ Content filtering (Gemini AI)
 - ✅ `.env` in `.gitignore`
+- ✅ Age validation (12+ years)
+- ✅ Session persistence
 
 ---
 
@@ -186,7 +256,7 @@ npm run build      # Create production build
 ## 🌐 Deployment
 
 ### **Recommended Platforms (Free):**
-- **Vercel** (Recommended)
+- **Vercel** (Recommended - easiest)
 - **Netlify**
 - **Firebase Hosting**
 - **GitHub Pages**
@@ -197,6 +267,14 @@ Add these to your hosting platform:
 REACT_APP_GEMINI_API_KEY=your_api_key_here
 ```
 
+### **Vercel Deployment:**
+```bash
+npm install -g vercel
+vercel login
+vercel
+# Follow prompts and add environment variable
+```
+
 ---
 
 ## 📊 Firebase Configuration
@@ -204,10 +282,12 @@ REACT_APP_GEMINI_API_KEY=your_api_key_here
 **Project:** notunpath-3c848
 
 **Collections:**
-- `users` - User profiles (uid, email, name, phone, age)
+- `users` - User profiles
+  - Fields: uid, email, name, phone, dateOfBirth, age, createdAt
 
 **Authentication:**
-- Email/Password
+- Email/Password enabled
+- Age validation (12+ years)
 
 **Access Console:**
 https://console.firebase.google.com/project/notunpath-3c848
@@ -218,34 +298,54 @@ https://console.firebase.google.com/project/notunpath-3c848
 
 ### **Key Highlights:**
 1. **Production-ready authentication** (Firebase)
-2. **AI integration** (Google Gemini)
-3. **Culturally relevant content** (Bangladesh context)
+2. **AI integration** (Google Gemini with app context)
+3. **Culturally relevant content** (Bangla-English mixed)
 4. **Modern tech stack** (React, Firebase, AI)
 5. **Completely free** (no costs!)
 6. **Scalable architecture**
+7. **Anonymous Q&A forum** (unique feature)
+8. **Professional consultation system**
+9. **Emergency support integration**
+10. **Mobile-first responsive design**
 
 ### **Demo Checklist:**
-- [ ] User registration/login
-- [ ] Educational modules
-- [ ] AI Chat Buddy (ask 3-4 questions)
-- [ ] Parents section
-- [ ] Responsive design
-- [ ] Logout functionality
+- [x] User registration/login (with age validation)
+- [x] User profile (view/edit)
+- [x] Educational modules (6 detailed modules)
+- [x] Melo AI Chat Buddy (context-aware responses)
+- [x] Doctor consultation (5 doctors)
+- [x] Anonymous Q&A Forum (with upvotes)
+- [x] Emergency contacts (3 helplines)
+- [x] Parents section
+- [x] Responsive design (mobile-first)
+- [x] Logout functionality
+
+### **Unique Selling Points:**
+- AI knows entire app context (modules, doctors, emergency)
+- Anonymous forum for sensitive questions
+- Professional doctor consultation
+- Emergency helpline integration
+- Culturally appropriate Bangla-English content
 
 ---
 
 ## 🐛 Troubleshooting
 
-### **AI Chat not working?**
+### **Melo AI not working?**
 1. Check `.env` file has correct API key
-2. Restart the app
+2. Restart the app (`npm start`)
 3. Check internet connection
-4. See [AI_CHAT_SETUP.md](./AI_CHAT_SETUP.md)
+4. Verify API key at: https://aistudio.google.com/app/apikey
 
 ### **Can't login?**
 1. Check Firebase config in `src/firebase/config.js`
 2. Verify internet connection
-3. See [AUTHENTICATION_GUIDE.md](./AUTHENTICATION_GUIDE.md)
+3. Ensure email/password auth is enabled in Firebase Console
+
+### **Date input not working?**
+- Fixed! Now supports both typing (DD/MM/YYYY) and calendar selection
+- Click 📅 icon to open calendar
+- Or type directly in DD/MM/YYYY format
 
 ### **Build errors?**
 ```bash
@@ -256,23 +356,13 @@ npm start
 
 ---
 
-## 📚 Documentation
+## 🎯 Project Objectives (Fulfilled)
 
-- [AUTHENTICATION_GUIDE.md](./AUTHENTICATION_GUIDE.md) - Auth system details
-- [QUICK_START.md](./QUICK_START.md) - Getting started
-- [AI_CHAT_SETUP.md](./AI_CHAT_SETUP.md) - AI setup guide
-- [QUICK_API_SETUP.md](./QUICK_API_SETUP.md) - Quick API setup
-- [questions_and_answers.md](./questions_and_answers.md) - Project Q&A
-
----
-
-## 🎯 Project Objectives
-
-1. **Spread Awareness** - Provide factual health information to teens
-2. **Support Parents** - Guide parents on sensitive conversations
-3. **Break Taboos** - Reduce stigma around health education
-4. **Private Support** - AI buddy for anonymous questions
-5. **Cultural Sensitivity** - Content relevant to Bangladesh
+1. ✅ **Spread Awareness** - 6 detailed educational modules
+2. ✅ **Support Parents** - Comprehensive parents section
+3. ✅ **Break Taboos** - Anonymous forum, culturally sensitive content
+4. ✅ **Private Professional Aid** - Doctor consultation system
+5. ✅ **AI Buddy** - Melo with full app context
 
 ---
 
@@ -288,21 +378,24 @@ npm start
 - 10K reads/day (free tier)
 - 20K writes/day (free tier)
 - 1GB storage (free tier)
+- 100 simultaneous connections
 
 ---
 
-## 🤝 Contributing
+## 📚 Features Summary
 
-This is a university project. For questions or suggestions:
-1. Check documentation files
-2. Review code comments
-3. Test locally before changes
-
----
-
-## 📄 License
-
-This project is created for educational purposes as a university project.
+| Feature | Status | Description |
+|---------|--------|-------------|
+| Authentication | ✅ | Firebase Email/Password |
+| User Profile | ✅ | View/Edit profile |
+| Educational Modules | ✅ | 6 detailed modules |
+| Melo AI | ✅ | Context-aware chat |
+| Doctor Consultation | ✅ | 5 doctors with booking |
+| Anonymous Forum | ✅ | Q&A with upvotes |
+| Emergency Contacts | ✅ | 3 helplines |
+| Parents Section | ✅ | Guidance for parents |
+| Mobile Responsive | ✅ | Mobile-first design |
+| Deployment Ready | ✅ | Vercel/Firebase ready |
 
 ---
 
@@ -310,7 +403,8 @@ This project is created for educational purposes as a university project.
 
 **Project:** নতুনপথ (Notun Poth)  
 **Purpose:** University Project - Teen Health Awareness  
-**Target:** Bangladeshi Adolescents & Parents
+**Target:** Bangladeshi Adolescents & Parents  
+**Tech Stack:** React + Firebase + Gemini AI
 
 ---
 
@@ -325,11 +419,6 @@ This project is created for educational purposes as a university project.
 
 ## 📞 Support
 
-**Documentation:**
-- Check the `/docs` folder
-- Read setup guides
-- Review code comments
-
 **External Resources:**
 - [React Docs](https://react.dev)
 - [Firebase Docs](https://firebase.google.com/docs)
@@ -341,9 +430,11 @@ This project is created for educational purposes as a university project.
 
 **Status:** ✅ Production Ready  
 **Cost:** 💰 $0 (Completely Free!)  
-**Demo Ready:** 🎓 Yes!
+**Demo Ready:** 🎓 Yes!  
+**Features:** 🚀 10+ Major Features
 
 ---
 
 **Last Updated:** December 2025  
-**Version:** 1.0.0
+**Version:** 1.0.0  
+**License:** Educational Use
