@@ -1,4 +1,4 @@
-# নতুনপথ (Notun Poth) - Teen Health Awareness App
+# নতুনপথ (Notun Poth) - Digital Health Literacy Application
 
 A comprehensive mobile-first web application for Bangladeshi adolescents and parents, providing health education, AI-powered support, and professional consultation.
 
