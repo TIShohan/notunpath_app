@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
 import Home from './Pages/Home';
@@ -14,6 +14,19 @@ import Emergency from './Pages/Emergency';
 import Profile from './Pages/Profile';
 import Forum from './Pages/Forum';
 import './App.css';
+
+// Component to redirect logged-in users from login page to home
+function LoginRedirect() {
+  const { currentUser } = useAuth();
+
+  // If user is logged in, redirect to home
+  if (currentUser) {
+    return <Navigate to="/home" replace />;
+  }
+
+  // Otherwise, show login page
+  return <Login />;
+}
 
 // Navigation component with hamburger menu
 function Navigation() {
@@ -108,8 +121,8 @@ function App() {
 
           {/* Page Routes */}
           <Routes>
-            {/* Public Route - Login */}
-            <Route path="/" element={<Login />} />
+            {/* Public Route - Login (redirects to home if already logged in) */}
+            <Route path="/" element={<LoginRedirect />} />
 
             {/* Protected Routes - Require Authentication */}
             <Route path="/home" element={
