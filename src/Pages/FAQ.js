@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import { sendMessageToGemini, isGeminiConfigured } from "../services/geminiService";
+import { sendMessageToAI } from "../services/aiService";
 import { useAuth } from "../context/AuthContext";
+
 
 function FAQ() {
   const { userProfile } = useAuth();
@@ -83,7 +84,7 @@ function FAQ() {
     setLoading(true);
 
     try {
-      const aiResponse = await sendMessageToGemini(userQuestion);
+      const aiResponse = await sendMessageToAI(userQuestion);
       const aiMessage = {
         type: "ai",
         text: aiResponse,
@@ -302,11 +303,6 @@ function FAQ() {
             <span style={{ fontSize: '1.2rem', marginLeft: '2px' }}>➤</span>
           </button>
         </div>
-        {!isGeminiConfigured() && (
-          <p style={{ color: 'red', fontSize: '0.8rem', textAlign: 'center', marginTop: '5px' }}>
-            Setup Required: Add REACT_APP_GEMINI_API_KEY to .env
-          </p>
-        )}
       </div>
 
       <style>{`
